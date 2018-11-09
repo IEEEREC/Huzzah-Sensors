@@ -19,7 +19,7 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
-constexpr uint8_t RST_PIN = 9;     // Configurable, see typical pin layout above
+constexpr uint8_t RST_PIN = 5;     // Configurable, see typical pin layout above
 constexpr uint8_t SS_PIN = 15;     // Configurable, see typical pin layout above
  
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
@@ -40,13 +40,13 @@ byte nuidPICC[4];
 #include <CayenneMQTTESP8266.h>
 
 // WiFi network info.
-char ssid[] = "Ieee1";
-char wifiPassword[] = "qwerty2018";
+char ssid[] = "ssid";
+char wifiPassword[] = "pass";
 
 // Cayenne authentication info. This should be obtained from the Cayenne Dashboard.
-char username[] = "45606660-dc9a-11e8-810f-075d38a26cc9";
-char password[] = "0a228c325d9a51d899377be70fb543d5a7968e92";
-char clientID[] = "83b1a1d0-e150-11e8-a254-e163efaadfe8";
+char username[] = "username";
+char password[] = "pass";
+char clientID[] = "client ID";
 
 unsigned long lastMillis = 0;
 static int tagToCompare;
