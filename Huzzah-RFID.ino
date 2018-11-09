@@ -1,8 +1,8 @@
 /*
  * Typical pin layout used:
  * -------------------------------------------------
- *             MFRC522      Arduino       Arduino   
- *             Reader/PCD   Uno/101       Mega      
+ *             MFRC522      Arduino       Adafruit   
+ *             Reader/PCD   Uno/101       Huzzah Esp8266      
  * Signal      Pin          Pin           Pin       
  * -------------------------------------------------
  * RST/Reset   RST          9             5         
@@ -15,7 +15,7 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
-constexpr uint8_t RST_PIN = 9;     // Configurable, see typical pin layout above
+constexpr uint8_t RST_PIN = 5;     // Configurable, see typical pin layout above
 constexpr uint8_t SS_PIN = 15;     // Configurable, see typical pin layout above
  
 MFRC522 rfid(SS_PIN, RST_PIN); // Instance of the class
@@ -36,8 +36,8 @@ void setup() {
     key.keyByte[i] = 0xFF;
   }
 
-  //Serial.println(F("This code scan the MIFARE Classsic NUID."));
-  //Serial.print(F("Using the following key:"));
+  Serial.println(F("This code scan the MIFARE Classsic NUID."));
+  Serial.print(F("Using the following key:"));
   printHex(key.keyByte, MFRC522::MF_KEY_SIZE);
 }
  
@@ -67,33 +67,16 @@ void loop() {
    for (byte i = 0; i < 4; i++) {
      nuidPICC[i] = rfid.uid.uidByte[i];
    }
-   
-
-
-  if(0xB5 == nuidPICC[0] && 0x31 == nuidPICC[1] &&    //Change this to your cards UID
-      0x56 == nuidPICC[2] && 0x45 == nuidPICC[3] )
-    {
-      Serial.println();
-      Serial.println("Access GRANTED :)");
-      delay(3000);
-    }
-  else
-    {
-      Serial.println();
-      Serial.println("Access DENIED :(");
-      delay(2000);
-    }
     
    
-  //Serial.println(F("The NUID tag is:"));
-  //Serial.print(F("In hex: "));
-  //printHex(rfid.uid.uidByte, rfid.uid.size);
-  //Serial.println();
-  //Serial.print(F("In dec: "));
-  //printDec(rfid.uid.uidByte, rfid.uid.size);
-  //Serial.println();
-  //Serial.println();
-  //Serial.println();        
+  Serial.println(F("The NUID tag is:"));
+  Serial.print(F("In hex: "));
+  printHex(rfid.uid.uidByte, rfid.uid.size);
+  Serial.println();
+  Serial.print(F("In dec: "));
+  printDec(rfid.uid.uidByte, rfid.uid.size);
+  Serial.println();
+  Serial.println();    
 
 
   // Halt PICC
@@ -109,8 +92,8 @@ void loop() {
  */
 void printHex(byte *buffer, byte bufferSize) {
   for (byte i = 0; i < bufferSize; i++) {
-    //Serial.print(buffer[i] < 0x10 ? " 0" : " ");
-    //Serial.print(buffer[i], HEX);
+    Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+    Serial.print(buffer[i], HEX);
   }
 
 }
@@ -120,7 +103,7 @@ void printHex(byte *buffer, byte bufferSize) {
  */
 void printDec(byte *buffer, byte bufferSize) {
   for (byte i = 0; i < bufferSize; i++) {
-    //Serial.print(buffer[i] < 0x10 ? " 0" : " ");
-    //Serial.print(buffer[i], DEC);
+    Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+    Serial.print(buffer[i], DEC);
   }
 }
