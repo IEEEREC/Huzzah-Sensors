@@ -9,7 +9,9 @@
  * SPI SS      SDA(SS)      10            15        
  * SPI MOSI    MOSI         11 / ICSP-4   13        
  * SPI MISO    MISO         12 / ICSP-1   12        
- * SPI SCK     SCK          13 / ICSP-3   14        
+ * SPI SCK     SCK          13 / ICSP-3   14 
+ *             3.3V         3.3V          3.3V
+ *             GND          GND           GND
  */
 
 #include <SPI.h>
